@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Ganesh Chaturthi invitation &mdash; Monday 14 September 2026, 4&ndash;8 PM, 959 Pavilion Loop, San Jose, CA. Hosted by Bishwarup & Priyanka.">
+<meta name="theme-color" content="#3a0c13">
+
+<!-- Link preview (WhatsApp, iMessage, Facebook). These MUST be absolute URLs.
+     Replace the two REPLACE_WITH_YOUR_URL lines with your published address,
+     e.g. https://yourname.github.io/ganesh-chaturthi/ -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ganesh Chaturthi &mdash; Bishwarup &amp; Priyanka">
+<meta property="og:description" content="Monday 14 September 2026 &middot; 4&ndash;8 PM &middot; 959 Pavilion Loop, San Jose, CA">
+<meta property="og:image" content="REPLACE_WITH_YOUR_URL/ganesh.jpg">
+<meta property="og:url" content="REPLACE_WITH_YOUR_URL/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%AA%94%3C/text%3E%3C/svg%3E">
+<title>Ganesh Chaturthi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Yatra+One&family=Noto+Serif+Devanagari:wght@500;600;700&family=Baloo+Da+2:wght@600;700;800&family=Noto+Serif+Bengali:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --page-bg: #f3e6cd;
+    --page-bg-2: #e8d3a4;
+    --cream: #f7ead0;
+    --cream-deep: #e9d2a0;
+    --cream-line: #d8b96e;
+    --maroon-deep: #3a0c13;
+    --maroon-deep-2: #2a0810;
+    --maroon: #8a1f1f;
+    --maroon-dark: #5c0f14;
+    --gold: #c9932f;
+    --gold-bright: #f0c667;
+    --ink: #4a1410;
+    --ink-soft: #6b3a2e;
+    --cream-text: #f5e2b8;
+    --cream-text-soft: #d9b98a;
+    --shadow-card: 0 34px 80px -24px rgba(30,6,10,.55), 0 2px 0 rgba(255,255,255,.4) inset;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --page-bg: #1b0e08;
+      --page-bg-2: #120a06;
+    }
+  }
+  :root[data-theme="dark"]{
+    --page-bg: #1b0e08;
+    --page-bg-2: #120a06;
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:
+      radial-gradient(ellipse 70% 45% at 50% -6%, rgba(240,198,103,.22), transparent 60%),
+      radial-gradient(circle at 50% 100%, var(--page-bg-2), var(--page-bg) 70%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: "Cormorant Garamond", "Noto Serif Devanagari", "Noto Serif Bengali", serif;
+    min-height: 100vh;
+    min-height: 100svh;
+    display:flex; align-items:center; justify-content:center;
+    padding: 48px 18px;
+    overflow-x: hidden;
+  }
+
+  .backdrop{ position:fixed; top:0; right:0; bottom:0; left:0; pointer-events:none; overflow:hidden; z-index:0; }
+  .petal{ position:absolute; top:-5%; border-radius:50% 50% 50% 0; opacity:.55; animation: fall linear infinite; }
+  @keyframes fall{
+    0%{ transform:translate(0,-10vh) rotate(0deg); opacity:0; }
+    8%{ opacity:.55; } 92%{ opacity:.4; }
+    100%{ transform:translate(var(--drift,30px),110vh) rotate(320deg); opacity:0; }
+  }
+
+  .stage{ position:relative; z-index:1; width:100%; display:flex; justify-content:center; }
+  .card{
+    width:min(460px,100%);
+    background: var(--cream);
+    border-radius: 20px;
+    overflow:hidden;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--cream-line);
+    opacity:0;
+    transform: translateY(18px) scale(.98);
+    animation: cardIn .85s cubic-bezier(.22,.68,0,1.01) .1s forwards;
+  }
+  @keyframes cardIn{ to{ opacity:1; transform:translateY(0) scale(1); } }
+
+  .lang-switch{
+    position:relative; display:flex; gap:4px; justify-content:center;
+    background: rgba(58,12,19,.08);
+    background: color-mix(in srgb, var(--maroon-deep) 8%, transparent);
+    border-bottom: 1px solid var(--cream-line);
+    padding: 10px 10px 9px;
+  }
+  .lang-indicator{
+    position:absolute; top:8px; bottom:8px; left:10px; width:60px;
+    border-radius:999px;
+    background: linear-gradient(160deg, var(--gold-bright), var(--gold));
+    box-shadow: 0 3px 8px -2px rgba(58,12,19,.45);
+    transition: transform .35s cubic-bezier(.22,.68,0,1.01), width .35s cubic-bezier(.22,.68,0,1.01);
+    z-index:0;
+  }
+  .lang-switch button{
+    position:relative; z-index:1; border:none; background:transparent; cursor:pointer;
+    padding:9px 14px; font-size:13.5px; font-weight:600; color: var(--ink-soft);
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    border-radius:999px; white-space:nowrap; transition: color .25s ease;
+    font-family:"Cormorant Garamond", serif;
+  }
+  .lang-switch button[aria-selected="true"]{ color:#3a0c13; }
+  .lang-switch button:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .lang-switch button[lang="bn"]{ font-family:"Noto Serif Bengali", serif; }
+  .lang-switch button[lang="hi"], .lang-switch button[lang="mr"]{ font-family:"Noto Serif Devanagari", serif; }
+
+  /* music toggle, sits in the right margin of the language bar */
+  .lang-switch .music-btn{
+    position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    width:24px; height:24px; padding:0; border-radius:50%; cursor:pointer;
+    border:1px solid var(--cream-line); background:rgba(255,255,255,.4);
+    color:var(--ink-soft); display:flex; align-items:center; justify-content:center;
+    transition: background .25s ease, color .25s ease, box-shadow .25s ease;
+  }
+  .lang-switch .music-btn svg{ width:13px; height:13px; display:block; }
+  /* keeps the button looking small but comfortably tappable (~44px) */
+  .lang-switch .music-btn::after{ content:""; position:absolute; top:-10px; right:-8px; bottom:-10px; left:-10px; }
+  .lang-switch .music-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .lang-switch .music-btn.on{
+    background: linear-gradient(160deg, var(--gold-bright), var(--gold));
+    color:#3a0c13; border-color:var(--gold);
+    box-shadow: 0 2px 6px -1px rgba(58,12,19,.45);
+  }
+  .lang-switch .music-btn.on .m-off{ display:none; }
+  .lang-switch .music-btn.nudge{ animation: musicNudge 2.4s ease-in-out 3; }
+  @keyframes musicNudge{
+    0%,100%{ box-shadow:0 0 0 0 rgba(201,147,47,0); }
+    30%{ box-shadow:0 0 0 5px rgba(201,147,47,.28); }
+    60%{ box-shadow:0 0 0 0 rgba(201,147,47,0); }
+  }
+  @media (max-width: 360px){
+    .lang-switch button{ padding:7px 10px; font-size:12.5px; }
+  }
+
+  /* ============ HERO: full, untouched artwork (text already scrubbed by hand) ============ */
+  /* --u is 1% of the artwork width, kept in step by script below.
+     The default suits the 458px card if script is unavailable. */
+  .hero{ position:relative; --u: 4.58px; }
+  .hero img{ display:block; width:100%; height:auto; }
+
+  /* --- top zone: eyebrow / title / subhead, written straight onto the blank parchment --- */
+  .hero-top{
+    position:absolute; top:7.6%; left:10.5%; right:10.5%;
+    text-align:center; z-index:2;
+  }
+  .top-content{ display:grid; width:100%; }
+  .top-panel{
+    grid-area:1/1; text-align:center; line-height:normal;
+    opacity:0; transform:translateY(6px); pointer-events:none;
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .top-panel.active{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .eyebrow{ margin:0 0 calc(var(--u) * 0.437); font-size: calc(var(--u) * 2.85); font-style:italic; color:var(--ink-soft); font-family:"Cormorant Garamond",serif; }
+  .eyebrow[lang="bn"]{ font-family:"Noto Serif Bengali",serif; font-style:normal; }
+  .eyebrow[lang="hi"], .eyebrow[lang="mr"]{ font-family:"Noto Serif Devanagari",serif; font-style:normal; }
+  .title{
+    margin:calc(var(--u) * 0.218) 0 calc(var(--u) * 1.092); line-height:1.08; font-weight:900;
+    color: var(--maroon-dark);
+    filter: drop-shadow(0 2px 3px rgba(240,198,103,.6));
+    font-size: calc(var(--u) * 6.1);
+    letter-spacing:.01em;
+  }
+  .title[lang="en"]{ font-family:"Yatra One", serif; letter-spacing:.02em; }
+  .title[lang="hi"], .title[lang="mr"]{ font-family:"Yatra One", serif; }
+  .title[lang="bn"]{ font-family:"Baloo Da 2", sans-serif; }
+  .t-divider{ font-size: calc(var(--u) * 1.9); line-height:1; display:flex; align-items:center; gap:calc(var(--u) * 1.31); justify-content:center; margin:calc(var(--u) * 0.873) 0 calc(var(--u) * 1.528); color:var(--gold); }
+  .t-divider::before, .t-divider::after{ content:""; height:1.4px; width:calc(var(--u) * 5.677); background:linear-gradient(90deg,transparent,var(--cream-line)); }
+  .t-divider::after{ background:linear-gradient(90deg,var(--cream-line),transparent); }
+  .subhead{ margin:0 auto; max-width:78%; font-size: calc(var(--u) * 2.95); color:var(--ink-soft); font-weight:500; line-height:1.32; }
+  .subhead[lang="bn"]{ font-family:"Noto Serif Bengali",serif; }
+  .subhead[lang="hi"], .subhead[lang="mr"]{ font-family:"Noto Serif Devanagari",serif; }
+
+  /* --- info zone: date / time / venue, written into the blank band under each icon --- */
+  .hero-info{ position:absolute; top:0; right:0; bottom:0; left:0; z-index:2; }
+  .info-content{ display:grid; width:100%; height:100%; }
+  .info-panel{
+    grid-area:1/1; position:relative;
+    opacity:0; transform:translateY(4px); pointer-events:none;
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .info-panel.active{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .info-col{
+    position:absolute; top:80.2%; width:25%;
+    display:flex; flex-direction:column; align-items:center; gap:calc(var(--u) * 0.437);
+  }
+  .info-col.c1{ left:11%; }
+  .info-col.c2{ left:37%; }
+  .info-col.c3{ left:62.5%; width:26.5%; }
+  .info-label{ font-size: calc(var(--u) * 2.62); letter-spacing:.07em; text-transform:uppercase; color:var(--maroon-dark); font-weight:900; font-family:"Cinzel",serif; white-space:nowrap; }
+  .info-label[lang="bn"]{ font-family:"Noto Serif Bengali",serif; font-weight:700; text-transform:none; letter-spacing:0; }
+  .info-label[lang="hi"], .info-label[lang="mr"]{ font-family:"Noto Serif Devanagari",serif; font-weight:700; text-transform:none; letter-spacing:0; }
+  .info-value{ font-size: calc(var(--u) * 2.84); color:var(--ink); font-weight:400; line-height:1.22; text-align:center; }
+  .info-value.addr{ font-size: calc(var(--u) * 2.75); line-height:1.15; }
+  .nb{ white-space:nowrap; }
+
+  /* --- bottom zone: blessing / host / closing, written straight onto the blank maroon --- */
+  .hero-bottom{
+    position:absolute; top:88.6%; left:0; right:0; bottom:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding: 0 7%;
+    z-index:2;
+  }
+  .footer-content{ display:grid; width:100%; }
+  .footer-panel{
+    grid-area:1/1;
+    opacity:0; transform:translateY(4px); pointer-events:none;
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .footer-panel.active{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .blessing{ margin:0 auto calc(var(--u) * 0.437); font-size: calc(var(--u) * 2.7); font-style:italic; color:var(--cream-text); font-weight:500; line-height:1.3; }
+  .blessing[lang="bn"]{ font-family:"Noto Serif Bengali",serif; font-style:normal; }
+  .blessing[lang="hi"], .blessing[lang="mr"]{ font-family:"Noto Serif Devanagari",serif; font-style:normal; }
+  .host{ margin:0 0 calc(var(--u) * 0.655); font-size: calc(var(--u) * 2.62); color:var(--cream-text); }
+  .host em{ color:var(--gold-bright); font-style:normal; font-weight:700; }
+  /* Indic scripts read optically smaller than Latin at the same px size */
+  .blessing[lang="bn"], .host[lang="bn"]{ font-size: calc(var(--u) * 3.0); }
+  .blessing[lang="hi"], .blessing[lang="mr"],
+  .host[lang="hi"], .host[lang="mr"]{ font-size: calc(var(--u) * 2.8); line-height:1.25; }
+  .closing{
+    margin:0; font-weight:800; letter-spacing:.02em;
+    color: var(--gold-bright);
+    font-size: calc(var(--u) * 4.35);
+  }
+  @supports ((-webkit-background-clip: text) or (background-clip: text)){
+    .closing{
+      background: linear-gradient(160deg, var(--gold-bright), var(--gold));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+  }
+  .closing[lang="en"]{ font-family:"Cinzel",serif; text-transform:uppercase; }
+  .closing[lang="hi"], .closing[lang="mr"]{ font-family:"Yatra One",serif; }
+  .closing[lang="bn"]{ font-family:"Baloo Da 2",sans-serif; }
+
+  [lang="bn"]{ font-family:"Noto Serif Bengali",serif; }
+  [lang="hi"], [lang="mr"]{ font-family:"Noto Serif Devanagari",serif; }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{ animation:none; opacity:1; transform:none; }
+    .petal{ display:none; }
+    .top-panel, .info-panel, .footer-panel{ transition: opacity .01s linear; transform:none; }
+    .lang-switch .music-btn.nudge{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<audio id="bgm" loop preload="auto">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="backdrop" id="backdrop" aria-hidden="true"></div>
+
+<div class="stage">
+  <main class="card">
+    <nav class="lang-switch" role="tablist" aria-label="Choose invitation language" id="langSwitch">
+      <div class="lang-indicator" id="langIndicator" aria-hidden="true"></div>
+      <button role="tab" id="tab-en" aria-controls="panel-en" aria-selected="true" lang="en" data-lang="en">English</button>
+      <button role="tab" id="tab-hi" aria-controls="panel-hi" aria-selected="false" tabindex="-1" lang="hi" data-lang="hi">हिंदी</button>
+      <button role="tab" id="tab-mr" aria-controls="panel-mr" aria-selected="false" tabindex="-1" lang="mr" data-lang="mr">मराठी</button>
+      <button role="tab" id="tab-bn" aria-controls="panel-bn" aria-selected="false" tabindex="-1" lang="bn" data-lang="bn">বাংলা</button>
+      <button type="button" class="music-btn" id="musicBtn" aria-pressed="false" aria-label="Play background music" title="Play music">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor" stroke="none"/>
+          <path class="m-on" d="M15.5 8.5a5 5 0 0 1 0 7"/>
+          <path class="m-on" d="M18.5 5.5a9 9 0 0 1 0 13"/>
+          <path class="m-off" d="M22 9l-5 6M17 9l5 6"/>
+        </svg>
+      </button>
+    </nav>
+
+    <div class="hero">
+      <img src="ganesh.jpg" alt="A festive illustration of baby Ganesh in a jeweled crown, seated among marigold garlands, diyas and a small mouse, holding a bowl of laddoos." />
+
+      <div class="hero-top">
+        <div class="top-content">
+          <section class="top-panel active" data-lang="en" lang="en">
+            <p class="eyebrow" lang="en">You are cordially invited to</p>
+            <h1 class="title" lang="en">Ganesh Chaturthi</h1>
+            <div class="t-divider"><span>✦</span></div>
+            <p class="subhead" lang="en">Join us for an evening of devotion, blessings, prasad and togetherness.</p>
+          </section>
+          <section class="top-panel" data-lang="hi" lang="hi">
+            <p class="eyebrow" lang="hi">सादर आमंत्रित है</p>
+            <h1 class="title" lang="hi">गणेश चतुर्थी</h1>
+            <div class="t-divider"><span>✦</span></div>
+            <p class="subhead" lang="hi">भक्ति, आशीर्वाद, प्रसाद और अपनों के साथ की एक शाम में शामिल हों।</p>
+          </section>
+          <section class="top-panel" data-lang="mr" lang="mr">
+            <p class="eyebrow" lang="mr">सप्रेम आमंत्रण</p>
+            <h1 class="title" lang="mr">गणेश चतुर्थी</h1>
+            <div class="t-divider"><span>✦</span></div>
+            <p class="subhead" lang="mr">भक्ती, आशीर्वाद, प्रसाद आणि एकत्र येण्याच्या संध्याकाळी सहभागी व्हा.</p>
+          </section>
+          <section class="top-panel" data-lang="bn" lang="bn">
+            <p class="eyebrow" lang="bn">সাদর আমন্ত্রণ</p>
+            <h1 class="title" lang="bn">গণেশ চতুর্থী</h1>
+            <div class="t-divider"><span>✦</span></div>
+            <p class="subhead" lang="bn">ভক্তি, আশীর্বাদ, প্রসাদ ও একত্র হওয়ার এক সন্ধ্যায় আমাদের সাথে যোগ দিন।</p>
+          </section>
+        </div>
+      </div>
+
+      <div class="hero-info">
+        <div class="info-content">
+          <div class="info-panel active" data-lang="en">
+            <div class="info-col c1"><span class="info-label" lang="en">Date</span><span class="info-value" lang="en">Sep 14th</span></div>
+            <div class="info-col c2"><span class="info-label" lang="en">Time</span><span class="info-value" lang="en">4–8 PM</span></div>
+            <div class="info-col c3"><span class="info-label" lang="en">Venue</span><span class="info-value addr" lang="en"><span class="nb">959 Pavilion Loop</span><br><span class="nb">San Jose, CA</span></span></div>
+          </div>
+          <div class="info-panel" data-lang="hi">
+            <div class="info-col c1"><span class="info-label" lang="hi">तिथि</span><span class="info-value" lang="hi">१४ सितंबर</span></div>
+            <div class="info-col c2"><span class="info-label" lang="hi">समय</span><span class="info-value" lang="hi">शाम 4–8</span></div>
+            <div class="info-col c3"><span class="info-label" lang="hi">स्थान</span><span class="info-value addr" lang="hi"><span class="nb">959 Pavilion Loop</span><br><span class="nb">San Jose, CA</span></span></div>
+          </div>
+          <div class="info-panel" data-lang="mr">
+            <div class="info-col c1"><span class="info-label" lang="mr">तारीख</span><span class="info-value" lang="mr">१४ सप्टें</span></div>
+            <div class="info-col c2"><span class="info-label" lang="mr">वेळ</span><span class="info-value" lang="mr">दुपारी ४–८</span></div>
+            <div class="info-col c3"><span class="info-label" lang="mr">ठिकाण</span><span class="info-value addr" lang="mr"><span class="nb">959 Pavilion Loop</span><br><span class="nb">San Jose, CA</span></span></div>
+          </div>
+          <div class="info-panel" data-lang="bn">
+            <div class="info-col c1"><span class="info-label" lang="bn">তারিখ</span><span class="info-value" lang="bn">১৪ সেপ্টে</span></div>
+            <div class="info-col c2"><span class="info-label" lang="bn">সময়</span><span class="info-value" lang="bn">বিকাল ৪–৮টা</span></div>
+            <div class="info-col c3"><span class="info-label" lang="bn">স্থান</span><span class="info-value addr" lang="bn"><span class="nb">959 Pavilion Loop</span><br><span class="nb">San Jose, CA</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-bottom">
+        <div class="footer-content">
+          <div class="footer-panel active" data-lang="en">
+            <p class="blessing" lang="en">Your presence and blessings will make our celebration complete.</p>
+            <p class="host" lang="en">Hosted with love by <em>Bishwarup &amp; Priyanka</em></p>
+            <p class="closing" lang="en">Ganpati Bappa Morya!</p>
+          </div>
+          <div class="footer-panel" data-lang="hi">
+            <p class="blessing" lang="hi">आपकी उपस्थिति और आशीर्वाद ही हमारे उत्सव को सम्पूर्ण बनाएंगे।</p>
+            <p class="host" lang="hi">स्नेहपूर्वक आमंत्रणकर्ता — <em>बिश्वरूप और प्रियंका</em></p>
+            <p class="closing" lang="hi">गणपति बप्पा मोरया!</p>
+          </div>
+          <div class="footer-panel" data-lang="mr">
+            <p class="blessing" lang="mr">आपली उपस्थिती आणि आशीर्वाद आमचा उत्सव पूर्ण करतील.</p>
+            <p class="host" lang="mr">स्नेहपूर्वक आमंत्रक — <em>बिश्वरूप आणि प्रियंका</em></p>
+            <p class="closing" lang="mr">गणपती बाप्पा मोरया!</p>
+          </div>
+          <div class="footer-panel" data-lang="bn">
+            <p class="blessing" lang="bn">আপনার উপস্থিতি ও আশীর্বাদই আমাদের উৎসবকে সম্পূর্ণ করবে।</p>
+            <p class="host" lang="bn">আন্তরিক আমন্ত্রণে — <em>বিশ্বরূপ ও প্রিয়াঙ্কা</em></p>
+            <p class="closing" lang="bn">গণপতি বাপ্পা মোরিয়া!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- keep the overlay text in proportion with the artwork -------------
+     Every label on the card is sized from --u, which is 1% of the picture's
+     rendered width. Setting it here (rather than with CSS container queries)
+     means the proportions hold on older iOS and Android too, where container
+     queries are unavailable and text would otherwise sit at a fixed size and
+     collide with the artwork on small screens. */
+  (function scaleOverlay(){
+    var hero = document.querySelector('.hero');
+    if(!hero) return;
+    function apply(){
+      var w = hero.clientWidth;
+      if(w) hero.style.setProperty('--u', (w / 100) + 'px');
+    }
+    apply();
+    if(window.ResizeObserver){
+      new ResizeObserver(apply).observe(hero);
+    } else {
+      window.addEventListener('resize', apply);
+      window.addEventListener('orientationchange', apply);
+    }
+    var img = hero.querySelector('img');
+    if(img && !img.complete) img.addEventListener('load', apply);
+    if(document.fonts && document.fonts.ready && document.fonts.ready.then){
+      document.fonts.ready.then(apply);
+    }
+  })();
+
+  if(!reduceMotion){
+    var backdrop = document.getElementById('backdrop');
+    var palette = [
+      'linear-gradient(135deg,#f0c667,#c9932f)',
+      'linear-gradient(135deg,#e07a7a,#8a1f1f)',
+      'linear-gradient(135deg,#f5da9a,#e0a83b)'
+    ];
+    for(var i=0;i<7;i++){
+      var p = document.createElement('div');
+      p.className='petal';
+      var size = 8+Math.random()*5;
+      p.style.width=size+'px'; p.style.height=size+'px';
+      p.style.left=(Math.random()*100)+'vw';
+      p.style.animationDelay=(Math.random()*16)+'s';
+      p.style.animationDuration=(13+Math.random()*9)+'s';
+      p.style.setProperty('--drift',(Math.random()*80-40).toFixed(0)+'px');
+      p.style.background = palette[i % palette.length];
+      p.style.opacity=(0.35+Math.random()*0.3).toFixed(2);
+      backdrop.appendChild(p);
+    }
+  }
+
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('#langSwitch [role="tab"]'));
+  var indicator = document.getElementById('langIndicator');
+  var switchEl = document.getElementById('langSwitch');
+
+  function placeIndicator(tab){
+    var sw = switchEl.getBoundingClientRect();
+    var tb = tab.getBoundingClientRect();
+    indicator.style.width = tb.width+'px';
+    indicator.style.transform = 'translateX('+(tb.left-sw.left-10)+'px)';
+  }
+
+  function activate(lang, focus){
+    tabs.forEach(function(t){
+      var sel = t.dataset.lang===lang;
+      t.setAttribute('aria-selected', sel?'true':'false');
+      t.tabIndex = sel?0:-1;
+      if(sel){ placeIndicator(t); if(focus) t.focus(); }
+    });
+    document.querySelectorAll('.top-panel,.info-panel,.footer-panel').forEach(function(p){
+      p.classList.toggle('active', p.dataset.lang===lang);
+    });
+  }
+
+  tabs.forEach(function(tab, idx){
+    tab.addEventListener('click', function(){ activate(tab.dataset.lang, false); });
+    tab.addEventListener('keydown', function(e){
+      var next;
+      if(e.key==='ArrowRight') next=(idx+1)%tabs.length;
+      else if(e.key==='ArrowLeft') next=(idx-1+tabs.length)%tabs.length;
+      else if(e.key==='Home') next=0;
+      else if(e.key==='End') next=tabs.length-1;
+      else return;
+      e.preventDefault();
+      activate(tabs[next].dataset.lang, true);
+    });
+  });
+
+  window.addEventListener('resize', function(){
+    var active = tabs.find(function(t){ return t.getAttribute('aria-selected')==='true'; });
+    if(active) placeIndicator(active);
+  });
+  /* ---- background music ----------------------------------------------
+     Plays music.mp3 from this folder, looped, with a gentle fade in/out.
+     Never autoplays: browsers block that, and nobody wants a page that
+     starts making noise on its own. If music.mp3 is missing or won't
+     decode, the button hides itself and the card works exactly as before. */
+  (function(){
+    var btn   = document.getElementById('musicBtn');
+    var audio = document.getElementById('bgm');
+    if(!btn || !audio) return;
+
+    var TARGET = 0.75, FADE = 900, fadeTimer = null, playing = false;
+
+    function hideButton(){ btn.hidden = true; }
+    var src = audio.querySelector('source');
+    audio.addEventListener('error', hideButton);
+    if(src) src.addEventListener('error', hideButton);
+    /* the load may already have failed before this script ran, so check state too:
+       networkState 3 (NETWORK_NO_SOURCE) means no usable audio was found */
+    function checkSource(){
+      if(audio.error || audio.networkState === 3) hideButton();
+    }
+    checkSource();
+    setTimeout(checkSource, 1000);
+    setTimeout(checkSource, 3000);
+
+    function fadeTo(target, whenDone){
+      if(fadeTimer) clearInterval(fadeTimer);
+      var from = audio.volume, t0 = Date.now();
+      fadeTimer = setInterval(function(){
+        var k = Math.min(1, (Date.now() - t0) / FADE);
+        audio.volume = Math.max(0, Math.min(1, from + (target - from) * k));
+        if(k === 1){
+          clearInterval(fadeTimer); fadeTimer = null;
+          if(whenDone) whenDone();
+        }
+      }, 40);
+    }
+
+    function setState(on){
+      playing = on;
+      btn.classList.toggle('on', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.setAttribute('aria-label', on ? 'Stop music' : 'Play music');
+      btn.title = on ? 'Stop music' : 'Play music';
+      if(on) btn.classList.remove('nudge');
+    }
+
+    btn.addEventListener('click', function(){
+      if(playing){
+        fadeTo(0, function(){ audio.pause(); });
+        setState(false);
+      } else {
+        audio.volume = 0;
+        var p = audio.play();
+        if(p && p.catch) p.catch(hideButton);
+        fadeTo(TARGET);
+        setState(true);
+      }
+    });
+
+    /* pause when the tab goes away, resume when it comes back */
+    document.addEventListener('visibilitychange', function(){
+      if(!playing) return;
+      if(document.hidden){ audio.pause(); }
+      else { var p = audio.play(); if(p && p.catch) p.catch(function(){}); }
+    });
+
+    /* a soft pulse so people notice there is music to turn on */
+    setTimeout(function(){ if(!playing && !btn.hidden) btn.classList.add('nudge'); }, 1400);
+  })();
+
+  window.addEventListener('load', function(){ placeIndicator(tabs[0]); });
+  setTimeout(function(){ placeIndicator(tabs[0]); }, 50);
+})();
+</script>
+
+</body>
+</html>
