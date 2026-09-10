@@ -144,6 +144,21 @@
   }
   .lang-switch .music-btn.on .m-off{ display:none; }
   .lang-switch .music-btn.nudge{ animation: musicNudge 2.4s ease-in-out 3; }
+  /* a quiet hint that there is music, shown only until it actually starts */
+  .music-hint{
+    position:absolute; top:calc(100% + 7px); right:6px;
+    padding:4px 11px; border-radius:999px; white-space:nowrap; z-index:5;
+    background: linear-gradient(160deg, var(--cream), var(--cream-deep));
+    border:1px solid var(--gold);
+    box-shadow:0 4px 12px -5px rgba(58,12,19,.6);
+    color:var(--maroon-dark); font-family:"Cormorant Garamond",serif;
+    font-size:12px; font-style:italic; letter-spacing:.01em;
+    opacity:0; transform:translateY(-5px); pointer-events:none;
+    transition:opacity .45s ease, transform .45s ease;
+  }
+  .music-hint[lang="bn"]{ font-family:"Noto Serif Bengali",serif; font-style:normal; font-size:11px; }
+  .music-hint[lang="hi"], .music-hint[lang="mr"]{ font-family:"Noto Serif Devanagari",serif; font-style:normal; font-size:11px; }
+  .music-hint.show{ opacity:1; transform:translateY(0); }
   @keyframes musicNudge{
     0%,100%{ box-shadow:0 0 0 0 rgba(201,147,47,0); }
     30%{ box-shadow:0 0 0 5px rgba(201,147,47,.28); }
@@ -260,6 +275,7 @@
     .petal{ display:none; }
     .top-panel, .info-panel, .footer-panel{ transition: opacity .01s linear; transform:none; }
     .lang-switch .music-btn.nudge{ animation:none; }
+    .music-hint{ transition:none; }
   }
 </style>
 </head>
@@ -287,6 +303,7 @@
           <path class="m-off" d="M22 9l-5 6M17 9l5 6"/>
         </svg>
       </button>
+      <div class="music-hint" id="musicHint" lang="en" aria-hidden="true">Tap anywhere for music</div>
     </nav>
 
     <div class="hero">
@@ -448,6 +465,7 @@
     document.querySelectorAll('.top-panel,.info-panel,.footer-panel').forEach(function(p){
       p.classList.toggle('active', p.dataset.lang===lang);
     });
+    if(window.setMusicHintLang) window.setMusicHintLang(lang);
   }
 
   tabs.forEach(function(tab, idx){
@@ -481,6 +499,27 @@
 
     var TARGET = 0.75, FADE = 900, fadeTimer = null, playing = false, armed = false;
 
+    var hint = document.getElementById('musicHint');
+    var HINTS = {
+      en: 'Tap anywhere for music',
+      hi: 'संगीत के लिए कहीं भी टैप करें',
+      mr: 'संगीतासाठी कुठेही टॅप करा',
+      bn: 'গান শুনতে যেকোনো জায়গায় ট্যাপ করুন'
+    };
+    var hintTimer = null;
+    function showHint(){
+      if(!hint || playing || btn.hidden) return;
+      hint.classList.add('show');
+      hintTimer = setTimeout(hideHint, 7000);
+    }
+    function hideHint(){
+      if(hintTimer){ clearTimeout(hintTimer); hintTimer = null; }
+      if(hint) hint.classList.remove('show');
+    }
+    window.setMusicHintLang = function(lang){
+      if(hint && HINTS[lang]){ hint.textContent = HINTS[lang]; hint.setAttribute('lang', lang); }
+    };
+
     function fadeTo(target, whenDone){
       if(fadeTimer) clearInterval(fadeTimer);
       var from = audio.volume, t0 = Date.now();
@@ -497,7 +536,7 @@
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       btn.setAttribute('aria-label', on ? 'Stop music' : 'Play music');
       btn.title = on ? 'Stop music' : 'Play music';
-      if(on) btn.classList.remove('nudge');
+      if(on){ btn.classList.remove('nudge'); hideHint(); }
     }
 
     function attempt(onResult){
@@ -555,7 +594,9 @@
        sites the visitor has played media on before). Otherwise arm the
        fallback so the first touch starts it. */
     attempt(function(ok){ if(!ok) arm(); });
-    setTimeout(function(){ if(!playing && !btn.hidden) btn.classList.add('nudge'); }, 1400);
+    setTimeout(function(){
+      if(!playing && !btn.hidden){ btn.classList.add('nudge'); showHint(); }
+    }, 1300);
   })();
 
   window.addEventListener('load', function(){ placeIndicator(tabs[0]); });
