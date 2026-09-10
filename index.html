@@ -12,9 +12,16 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ganesh Chaturthi &mdash; Bishwarup &amp; Priyanka">
 <meta property="og:description" content="Monday 14 September 2026 &middot; 4&ndash;8 PM &middot; 959 Pavilion Loop, San Jose, CA">
-<meta property="og:image" content="https://bishwarupdey.github.io/Ganesh_Puja_Invitation/ganesh_preview.jpg">
+<meta property="og:image" content="https://bishwarupdey.github.io/Ganesh_Puja_Invitation/ganesh_preview_wide.jpg">
+<meta property="og:image:secure_url" content="https://bishwarupdey.github.io/Ganesh_Puja_Invitation/ganesh_preview_wide.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ganesh Chaturthi invitation from Bishwarup and Priyanka">
 <meta property="og:url" content="https://bishwarupdey.github.io/Ganesh_Puja_Invitation/">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bishwarupdey.github.io/Ganesh_Puja_Invitation/ganesh_preview_wide.jpg">
+<meta property="og:site_name" content="Ganesh Chaturthi 2026">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%AA%94%3C/text%3E%3C/svg%3E">
 <title>Ganesh Chaturthi</title>
@@ -462,29 +469,17 @@
     if(active) placeIndicator(active);
   });
   /* ---- background music ----------------------------------------------
-     Plays music.mp3 from this folder, looped, with a gentle fade in/out.
-     Never autoplays: browsers block that, and nobody wants a page that
-     starts making noise on its own. If music.mp3 is missing or won't
-     decode, the button hides itself and the card works exactly as before. */
+     Tries to start straight away. Every mobile browser blocks audio that
+     begins without a user gesture, so when that is refused we start on the
+     visitor's first tap, scroll or key press instead - in practice the music
+     begins the moment they touch the card. The speaker button stays visible
+     either way so it can be stopped. */
   (function(){
     var btn   = document.getElementById('musicBtn');
     var audio = document.getElementById('bgm');
     if(!btn || !audio) return;
 
-    var TARGET = 0.75, FADE = 900, fadeTimer = null, playing = false;
-
-    function hideButton(){ btn.hidden = true; }
-    var src = audio.querySelector('source');
-    audio.addEventListener('error', hideButton);
-    if(src) src.addEventListener('error', hideButton);
-    /* the load may already have failed before this script ran, so check state too:
-       networkState 3 (NETWORK_NO_SOURCE) means no usable audio was found */
-    function checkSource(){
-      if(audio.error || audio.networkState === 3) hideButton();
-    }
-    checkSource();
-    setTimeout(checkSource, 1000);
-    setTimeout(checkSource, 3000);
+    var TARGET = 0.75, FADE = 900, fadeTimer = null, playing = false, armed = false;
 
     function fadeTo(target, whenDone){
       if(fadeTimer) clearInterval(fadeTimer);
@@ -492,10 +487,7 @@
       fadeTimer = setInterval(function(){
         var k = Math.min(1, (Date.now() - t0) / FADE);
         audio.volume = Math.max(0, Math.min(1, from + (target - from) * k));
-        if(k === 1){
-          clearInterval(fadeTimer); fadeTimer = null;
-          if(whenDone) whenDone();
-        }
+        if(k === 1){ clearInterval(fadeTimer); fadeTimer = null; if(whenDone) whenDone(); }
       }, 40);
     }
 
@@ -508,27 +500,61 @@
       if(on) btn.classList.remove('nudge');
     }
 
-    btn.addEventListener('click', function(){
-      if(playing){
-        fadeTo(0, function(){ audio.pause(); });
-        setState(false);
+    function attempt(onResult){
+      audio.volume = 0;
+      var p;
+      try { p = audio.play(); } catch(e){ if(onResult) onResult(false); return; }
+      if(p && p.then){
+        p.then(function(){ fadeTo(TARGET); setState(true); if(onResult) onResult(true); })
+         .catch(function(err){
+            /* NotAllowedError just means a gesture is still required - keep
+               waiting. Only an unusable file justifies dropping the control. */
+            if(err && err.name === 'NotSupportedError') btn.hidden = true;
+            setState(false);
+            if(onResult) onResult(false);
+         });
       } else {
-        audio.volume = 0;
-        var p = audio.play();
-        if(p && p.catch) p.catch(hideButton);
-        fadeTo(TARGET);
-        setState(true);
+        fadeTo(TARGET); setState(true); if(onResult) onResult(true);
       }
-    });
+    }
 
-    /* pause when the tab goes away, resume when it comes back */
+    function start(){ attempt(null); }
+    function stop(){ fadeTo(0, function(){ audio.pause(); }); setState(false); }
+
+    /* Wait for the first real interaction and start then.
+       Two things matter here and both were wrong before:
+       - the listeners must survive a failed attempt, otherwise one early
+         scroll tears them down and the music can never start afterwards;
+       - scrolling does NOT grant playback permission (it is not an activation
+         event), so we must keep listening for an actual tap or key press. */
+    function arm(){
+      if(armed) return;
+      armed = true;
+      var events = ['pointerdown','pointerup','touchstart','touchend','click','keydown','scroll','wheel'];
+      function detach(){
+        events.forEach(function(n){ document.removeEventListener(n, go, true); });
+        armed = false;
+      }
+      function go(e){
+        if(e && e.target && e.target.closest && e.target.closest('#musicBtn')) return;
+        if(playing){ detach(); return; }
+        attempt(function(ok){ if(ok) detach(); });   /* only stop listening once it really plays */
+      }
+      events.forEach(function(n){ document.addEventListener(n, go, true); });
+    }
+
+    btn.addEventListener('click', function(){ playing ? stop() : start(); });
+
     document.addEventListener('visibilitychange', function(){
       if(!playing) return;
       if(document.hidden){ audio.pause(); }
       else { var p = audio.play(); if(p && p.catch) p.catch(function(){}); }
     });
 
-    /* a soft pulse so people notice there is music to turn on */
+    /* Try immediately - a few browsers allow it (Chrome grants autoplay to
+       sites the visitor has played media on before). Otherwise arm the
+       fallback so the first touch starts it. */
+    attempt(function(ok){ if(!ok) arm(); });
     setTimeout(function(){ if(!playing && !btn.hidden) btn.classList.add('nudge'); }, 1400);
   })();
 
